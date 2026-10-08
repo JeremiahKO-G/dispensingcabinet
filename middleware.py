@@ -1,24 +1,11 @@
-import sqlite3
-from ctypes.wintypes import HCURSOR
-from enum import nonmember
-
+from sqlite_code import get_user
 
 def authenticate(username, pswd):
-    # connect the database
-    connection = sqlite3.connect('wlcnursing.db')
-    cursor = connection.cursor()
+    # grab the user info if it exists in the user table
+    user = get_user(username, pswd)
 
-    cursor.execute(
-        "SELECT ID, username, password, inserted_on, last_login"
-        "FROM user"
-        "WHERE username = ? and password = ?", (username, pswd)
-    )
+    # check if the table contains the user associated with the pass
+    if user is None:
+        return False
 
-    user_info = cursor.fetchone()
-    connection.close()
-
-    if user_info is None:
-        return None
-
-    ID, username, password, inserted_on, last_login = user_info
-    
+    return True
