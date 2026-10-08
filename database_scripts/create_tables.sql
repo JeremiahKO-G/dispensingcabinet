@@ -1,0 +1,7 @@
+CREATE TABLE user(
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL ,
+    password TEXT NOT NULL ,
+    inserted_on TEXT DEFAULT CURRENT_TIMESTAMP,
+    last_login TEXT DEFAULT NULL
+);
